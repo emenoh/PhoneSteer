@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>Phone</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <%- cssInclude('phone.css') %>
+</head>
+<body data-ws="<%= hostUrl %>">
+
+    <div id="wrap">
+        <div class="inner">
+            <button id="broadcast" type="button">Broadcast</button>
+            <button id="pauseBroadcast" type="button">Pause</button>
+        </div>
+    </div>
+
+<%- jsInclude('/socket.io/socket.io.js', true) %>
+<%- jsInclude('phone.js') %>
+</body>
+</html>
