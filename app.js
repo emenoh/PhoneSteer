@@ -1,14 +1,17 @@
-
-    // Initialialize express app
+    /**
+     * Initialize express app. To run with supervisor for reloading on code change:
+     * $: supervisor -w 'app.js' app.js
+     * @type {*}
+     */
     var express  = require('express'),
         app      = express(),
         server   = require('http').createServer(app),
         socketIO = require('socket.io').listen(server);
 
     // Set EJS as template engine, and configure static paths
+    app.use(express.static(__dirname + '/public/assets'));
     app.engine('.html', require('ejs').__express);
-    app.use(express.static(__dirname + '/static'));
-    app.set('views', process.cwd() + '/views');
+    app.set('views', process.cwd() + '/public');
     app.set('view engine', 'html');
 
     // Init listening port
@@ -34,22 +37,48 @@
 
     // default route {domain}/
     app.get('/', function(req, res){
-        res.render('index.html', {
-            some: 'thing'
-        });
+        res.render('index.html');
     });
 
-    // phone route
-    app.get('/phone', function(req, res){
-        res.render('phone');
+    // control route
+    app.get('/control', function(req, res){
+        res.render('control');
     });
 
 
     ///////////////////////////// SOCKET.IO STUFF /////////////////////////////
-    var _index = socketIO.of('/index').on('connection', function(socket){});
+    var pairInstances = {};
 
-    var _phone = socketIO.of('/phone').on('connection', function(socket){
-        socket.on('movement', function(data){
-            _index.emit('update', data);
-        })
+    /**
+     * Accessed first, cache the socket for the "monitor" to allow the
+     * device/controller to sync up to later.
+     */
+    socketIO.of('/monitor').on('connection', function(socket){});
+
+    /**
+     * When the /control page is accessed, and the user types in the
+     * sync code, this handles the basic pairing.
+     */
+    socketIO.of('/controller').on('connection', function(_controlSocket){
+        _controlSocket.on('synchronize', function(data){
+            var _monitorSockets = socketIO.of('/monitor').clients();
+            for( var _i = 0; _i < _monitorSockets.length; _i++ ){
+                var _shortKey = _monitorSockets[_i].id.substring(0,6).toLowerCase();
+                if( _shortKey === data.key && (!pairInstances[_shortKey]) ){
+                    pairInstances[_shortKey] = new SyncedPair(_monitorSockets[_i], _controlSocket);
+                }
+            }
+        });
     });
+
+
+    function SyncedPair(monitorSocket, controlSocket){
+        // emit "syncd" true message to both clients
+        monitorSocket.emit('paired', {status: true});
+        controlSocket.emit('paired', {status: true});
+
+        // setup listener on the control socket
+        controlSocket.on('movement', function(data){
+            monitorSocket.emit('motion', data);
+        });
+    }

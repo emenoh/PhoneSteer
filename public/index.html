@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Index</title>
+    <link href='http://fonts.googleapis.com/css?family=Faster+One' rel='stylesheet' type='text/css'>
+    <%- cssInclude('index.css') %>
+</head>
+<body data-ws="<%= hostUrl %>">
+    <div id="syncup">
+        <div class="inner">
+            <p>Visit <span class="go-to"><%= hostUrl %>/control</span><br />on a mobile device and enter code<span id="sync-code">-----</span></p>
+        </div>
+    </div>
+
+<%- jsInclude('/socket.io/socket.io.js', true) %>
+<%- jsInclude('index.js') %>
+</body>
+</html>

@@ -1,4 +1,12 @@
-# General Ruby Box
+# PhoneSteer
+
+Starter project for building a simple Node/Express app w/ websockets to stream motion
+data from a mobile device to a paired web page (for example, to use for controlling
+a WebGL program on one screen with your mobile device).
+
+------------------------------- RUNNING PROJECT W/ VAGRANT -------------------------------
+
+## General Ruby Box
 
 Basic starting point for building Vagrant boxes for lots of projects - anything from
 developing static assets to full Rails apps.

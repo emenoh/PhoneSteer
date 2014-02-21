@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     # Install NodeJS?
     :nodejs => {
       :install => true,
-      :gruntjs => true
+      :gruntjs => false
     },
     # Web settings
     :web => {
@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
       # Ruby version to install for the Vagrant user
       :version => "2.1.0",
       # Gems to install out of the gate
-      :gems => [{:name => 'bundler'}]
+      :gems => [{:name => 'bundler'}, {:name => 'compass'}]
     },
     # PostgreSQL settings
     :postgres => {

@@ -1,0 +1,11 @@
+@import 'variables_mixins';
+
+html, body {margin:0;padding:0;height:100%;position:relative;@include box-sizing(border-box);}
+
+#syncup {font-size:18px;display:table;height:100%;width:100%;@include fontFasterOne;
+  .inner {height:100%;width:100%;display:table-cell;vertical-align:middle;text-align:center;
+    p {line-height:2.5em;}
+    .go-to {display:inline;padding:5px;background:#e1e1e1;@include border-radius(3px);}
+    #sync-code {font-size:200%;color:#fff;display:block;padding:5px 9px;background:#0b97c4;}
+  }
+}

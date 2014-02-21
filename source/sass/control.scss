@@ -1,0 +1,21 @@
+@import 'variables_mixins';
+
+html, body {overflow:hidden;margin:0;padding:0;height:100%;position:relative;@include box-sizing(border-box);}
+
+#cL1 {top:0;position:absolute;width:100%;height:200%;@include transition(all .5s ease);
+  &.show-controls {top:-100%;}
+  .tabled {position:relative;display:table;height:50%;width:100%;
+    .inner {height:100%;width:100%;display:table-cell;vertical-align:middle;text-align:center;}
+  }
+}
+
+#syncup {font-size:18px;@include fontFasterOne;
+  .blue {background:#0b97c4;color:#fff;padding:20px;}
+  input {padding:10px;text-align:center;font-size:18px;}
+}
+
+#controls {font-size:18px;@include fontFasterOne;
+  #broadcast {display:inline-block;background:#0b97c4;color:#fff;width:220px;height:220px;@include border-radius(50%);
+    .tabled {height:100%;}
+  }
+}

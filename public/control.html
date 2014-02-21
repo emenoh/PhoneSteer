@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>Phone</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href='http://fonts.googleapis.com/css?family=Faster+One' rel='stylesheet' type='text/css'>
+    <%- cssInclude('control.css') %>
+</head>
+<body data-ws="<%= hostUrl %>">
+    <div id="cL1">
+        <div id="syncup" class="tabled">
+            <div class="inner">
+                <div class="blue">
+                    <input id="sync-code-in" type="text" placeholder="Your Code" value="" />
+                </div>
+            </div>
+        </div>
+
+        <div id="controls" class="tabled">
+            <div class="inner">
+                <a id="broadcast">
+                    <div class="tabled">
+                        <div class="inner">
+                            Broadcasting
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+<%- jsInclude('/socket.io/socket.io.js', true) %>
+<%- jsInclude('control.js') %>
+</body>
+</html>

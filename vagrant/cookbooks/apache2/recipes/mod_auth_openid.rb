@@ -36,7 +36,7 @@ when 'arch'
   package 'tidyhtml'
 
   pacman_aur openid_dev_pkgs.first do
-    action [:build, :install]
+    action [:source, :install]
   end
 else
   openid_dev_pkgs.each do |pkg|
